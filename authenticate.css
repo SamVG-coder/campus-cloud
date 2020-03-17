@@ -52,8 +52,8 @@ body{
     margin-top: 10%;
 }
 .btnRegister{
-    float: right;
-    margin-top: 10%;
+    float: center;
+    margin-top: 5%;
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
@@ -94,4 +94,9 @@ body{
     margin-top: 8%;
     margin-bottom: -15%;
     color: #495057;
+}
+.form-group .col-md-6{
+    align-items: center;
+    display: block;
+    background-color: #1d1d1f;
 }
