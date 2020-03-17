@@ -3,12 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Campus Cloud</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="authenticate.css">
+    <script>
+        function validate(checker){
+            checker=parseInt(checker);
+            switch(checker){
+                case 1 : 
+                var fname=document.getElementById("fname").value;
+                RegExp1= /^[a-zA-Z]{1,20}$/;
+                if(!RegExp1.test(fname)){
+                    document.getElementById("error").innerHTML="Error : Invalid First name.";
+                    document.getElementById("error").style.visibility="visible";
+                return false;
+                }
+                else
+                    document.getElementById("error").style.visibility="hidden";	
+                break;
+            case 2 : 
+                var lname=document.getElementById("lname").value;
+                RegExp2= /^[a-zA-Z]{1,30}$/;
+                if(!RegExp2.test(lname)){
+                    document.getElementById("error").innerHTML="Error : Invalid Last name.";
+                    document.getElementById("error").style.visibility="visible";
+                    return false;
+                }
+                else
+                    document.getElementById("error").style.visibility="hidden";	
+                break;
+            case 3 :
+                var usn=document.getElementById("usn").value;
+                RegExp3=/2SD[1-2][4-9]CS[0-1][0-9][0-9]$/;
+                if(!RegExp3.test(usn)){
+                    document.getElementById("error").innerHTML="Error : Invalid USN.";
+                    document.getElementById("error").style.visibility="visible";
+                    return false;
+            }
+            else
+            {
+                document.getElementById("error").style.visibility="hidden";	
+            } 
+                break;
+            case 4:
+                var mobile=document.getElementById("phone").value;
+                RegExp4=/[6-9][0-9]{9}$/;
+                if(!RegExp4.test(mobile)){
+                    document.getElementById("error").innerHTML="Error : Invalid Phone number.";
+                    document.getElementById("error").style.visibility="visible";
+                    return false;
+                }else
+                {
+                    document.getElementById("error").style.visibility="hidden";
+                }
+                break;
+            }
+            return true;
+        }
+        function validateAll(){
+            for (let i = 1; i <=4; i++) {
+                var result=validate(i);
+                if(result==false){
+                    alert("Please fill Valid Deatails");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container register">
@@ -32,102 +97,89 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 class="register-heading">Sign up</h3>
-                        <div class="row register-form">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name *" value="" />
-                                </div>
-                                
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control"  placeholder="Confirm Password *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <div class="maxl">
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="gender" value="male" checked>
-                                            <span> Male </span> 
-                                        </label>
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="gender" value="female">
-                                            <span>Female </span> 
-                                        </label>
+                        <form action="/register" method="post" onsubmit="return validateAll()">
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="First Name *" value="" onchange="validate('1');" name="fname" id="fname" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Last Name *" value="" onchange="validate('2');" name="lname" id="lname" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="USN *" value="" onchange="validate('3');" name="usn" id="usn" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline"> 
+                                                <input type="radio" name="gender" value="male" checked>
+                                                <span> Male </span> 
+                                            </label>
+                                            <label class="radio inline"> 
+                                                <input type="radio" name="gender" value="female">
+                                                <span>Female </span> 
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Your Email *" value="" />
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Your Email *" value="" name="email" id="email" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" minlength="10" maxlength="10"  class="form-control" placeholder="Your Phone *" value="" onchange="validate('4');" name="phone" id="phone" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" minlength="6" class="form-control"  name="password" id="password" placeholder="Password *" value="" required/>
+                                    </div>
+                                    <input type="submit" class="btnRegister"  value="Register"/>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
-                                        <option>What is your Birthdate?</option>
-                                        <option>What is Your old Phone Number</option>
-                                        <option>What is your Pet Name?</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
-                                </div>
-                                <input type="submit" class="btnRegister"  value="Register"/>
-                            </div>
-                        </div>
+                            </div> 
+                            <center><label id="label"  style="color: red; visibility: hidden; "  ><b id="error"></b></label> </center>
+                        </form> 
                     </div>
                     <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <h3  class="register-heading">Login</h3>
+                        <form action="/login" method="post"></form>
                         <div class="row register-form">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Email *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
+                                    </div>
+    
+    
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Password *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                            <option>What is your Birthdate?</option>
+                                            <option>What is Your old Phone Number</option>
+                                            <option>What is your Pet Name?</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="`Answer *" value="" />
+                                    </div>
+                                    <input type="submit" class="btnRegister"  value="Login"/>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
-                                </div>
-
-
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
-                                        <option>What is your Birthdate?</option>
-                                        <option>What is Your old Phone Number</option>
-                                        <option>What is your Pet Name?</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="`Answer *" value="" />
-                                </div>
-                                <input type="submit" class="btnRegister"  value="Login"/>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
