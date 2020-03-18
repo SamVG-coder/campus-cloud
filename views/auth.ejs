@@ -1,0 +1,78 @@
+<%- include('partials/auth-header') %>
+<div class="container register">
+    <center><font color="white"><h1>Campus Cloud</h1></font></center>
+    <br><br>
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+            <h3>Welcome</h3>
+            <p>You are one step away from your seniors ! Everything at one place. Here we go !!! </p>
+        </div>
+        <div class="col-md-9 register-right">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Login</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Sign up</h3>
+                    <form action="/register" method="post" onsubmit="return validateAll()">
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name *" value="" onchange="validate('1');" name="fname" id="fname" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name *" value="" onchange="validate('2');" name="lname" id="lname" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="USN *" value="" onchange="validate('3');" name="usn" id="usn" required/>
+                                </div>
+                               
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email *" value="" name="email" id="email" required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" minlength="10" maxlength="10"  class="form-control" placeholder="Your Phone *" value="" onchange="validate('4');" name="phone" id="phone" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" minlength="6" class="form-control"  name="password" id="password" placeholder="Password *" value="" required/>
+                                </div>  
+                            </div>
+                            <div class="col-md-12" style="padding-left: 42%;">
+                                <input type="submit" class="btnRegister"  value="Register" style="width: 30%; " />
+                            </div>
+                        </div> 
+                        <center><label id="label"  style="color: red; visibility: hidden; "  ><b id="error"></b></label> </center>
+                    </form> 
+                </div>
+                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h3  class="register-heading">Login</h3>
+                    <form action="/login" method="post"></form>
+                    <div class="row register-form ">
+                            
+                                <div class="form-group  col-md-12" style="padding-left: 30%; ">
+                                <input type="text" class="form-control" placeholder=" USN " value=""  style="width: 60%;" name ="usn" id="usn"  required/>
+                                </div>
+                                <div class="form-group  col-md-12" style="padding-left: 30%; ">
+                                    <input type="password" class="form-control" placeholder="Password" value="" style="width: 60%;" name="password" id="password"/> <br>
+                                    <a href="/reset-pass" style="padding-left:15% ;">Forgot password ?</a>
+                                </div>
+                        <div class="col-md-12" style="padding-left: 42%;">
+                            <input type="submit" class="btnRegister"  value="Login" style="width: 30%; padding-bottom: -10px; " />
+                        </div>                               
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<%- include('partials/auth-footer') %>
