@@ -61,3 +61,12 @@ function validateAll(){
     }
     return true;
 }
+function validatePass(){
+    if(document.getElementById("new_pass").value!=document.getElementById("confirm_pass").value){
+        document.getElementById("mismatch").style.visibility="visible";
+        return false;
+    }else{
+        document.getElementById("mismatch").style.visibility="hidden";
+        return true;
+    }
+}

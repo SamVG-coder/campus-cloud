@@ -10,17 +10,21 @@
         </div>
         <div class="col-md-9 register-right">
                 <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <h3  class="register-heading">Verify OTP</h3>
-                    <form action="/retry-otp" method="post">
+                    <h3  class="register-heading">Set New Password</h3>
+                    <form action="/update-pass" method="post" onsubmit="return validatePass()" >
                     <div class="row register-form ">
                             
                                 <div class="form-group  col-md-12" style="padding-left: 30%; ">
-                                <input type="text" class="form-control" placeholder=" Enter OTP" value=""  style="width: 60%; " onchange="submit" name ="otp" id="otp"  required/>
+                                <input type="text" class="form-control" placeholder=" New Password" value=""  style="width: 60%; "  name ="new_pass" id="new_pass"  required/>
+                                </div>
+                                <div class="form-group  col-md-12" style="padding-left: 30%; ">
+                                    <input type="text" class="form-control" placeholder=" Confirm Password" value=""  style="width: 60%; " name ="confirm_pass" id="confirm_pass" required/>
                                 </div>
                         <div class="col-md-12" style="padding-left: 42%;">
-                            <input type="submit" class="btnRegister"  value="Verify" style="width: 30%; padding-bottom: -10px; " />
+                            <input type="submit" class="btnRegister"  value="Submit" style="width: 30%; padding-bottom: -10px; " />
                         </div>                               
                         </div>
+                        <center><label id="mismatch"  style="color: red; visibility: hidden; "  ><b> Password is not matching</b></label> </center>
                     </form>
                 </div>
         </div>
