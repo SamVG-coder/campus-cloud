@@ -60,7 +60,6 @@ body{
     background: #1d1d1f;
     color: #fff;
     font-weight: 600;
-    width: 50%;
     cursor: pointer;
 }
 .register .nav-tabs{
@@ -68,7 +67,7 @@ body{
     border: none;
     background: #1d1d1f;
     border-radius: 1.5rem;
-    width: 28%;
+    width: 25%;
     float: right;
 }
 .register .nav-tabs .nav-link{

@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require('express-session');
-const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+const passport = require("passport") ;
+const LocalStrategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer');
 var userOtp;
 var generatedOtp;
@@ -48,19 +48,34 @@ var userSchema = new mongoose.Schema({
     password: String,
     phone: String
    });
-userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User", userSchema);
 
-passport.use(User.createStrategy());
+passport.use(new LocalStrategy({usernameField:User.username},(username,password,done)=>{
+ User.findOne({username:username})
+ .then(user=>{
+   if(!user){
+     return done(null,false,{masssage:"Invalid user!!!"});
+   }
+   if(password!==user.password){
+      return done(null,false,{masssage:"Incorrect password!!!"});
+    }else{
+      return done(null,user);
+    }
+  })
+
+  .catch(err=> {
+    console.log(err);
+   })
+}));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.usn);
+  done(null,user.id); 
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+  User.findById(id,function(err,user){
+    done(err,user);
+  })
 });
 newUser=new User();
 
@@ -133,8 +148,30 @@ app.post("/otp",(req,res)=>{
     }
   });
 });  
+app.post('/login',(req , res,next)=> {
+  passport.authenticate('local',{ successRedirect: '/home',
+                                   failureRedirect: '/',
+                                   failureFlash: true })(req,res,next)
+      }
+);
+app.get("/home",checkAuthentication,(req,res)=>{
+  res.render("home");
+});
+function checkAuthentication(req,res,next){
+  if(req.isAuthenticated()){
+      //req.isAuthenticated() will return true if user is logged in
+      next();
+  } else{
+      res.redirect("/");
+  }
+}
+app.post('/logout', function (req, res){
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
+});
 
-app.post('/login',(req,res)=>{
+/*app.post('/login',(req,res)=>{
   const user = new User({
     username: req.body.username,
     password: req.body.password
@@ -152,7 +189,7 @@ app.post('/login',(req,res)=>{
       }
     });
 }
-  );
+  );*/
 
 app.post("/register",(req,res)=>{
   newUser=new User(req.body);
